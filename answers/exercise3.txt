@@ -1,0 +1,14 @@
+
+root@fa5f88423c5a:/# ls
+bin  boot  dev  etc  home  lib  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@fa5f88423c5a:/# cd usr/src/
+root@fa5f88423c5a:/usr/src# ls
+app
+root@fa5f88423c5a:/usr/src# cd app/
+root@fa5f88423c5a:/usr/src/app# ls
+index.js
+root@fa5f88423c5a:/usr/src/app# nano index.js
+root@fa5f88423c5a:/usr/src/app# cat index.js
+console.log("Hello, World!")
+
+root@fa5f88423c5a:/usr/src/app#
