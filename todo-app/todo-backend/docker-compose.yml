@@ -1,6 +1,6 @@
 services:
   app:
-    image: todo-backend
+    image: express-server
     build: .
     ports:
       - 3000:3000

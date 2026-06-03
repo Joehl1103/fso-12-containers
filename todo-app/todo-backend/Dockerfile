@@ -1,19 +1,13 @@
-FROM node:24.5.0
+FROM node:latest
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends dumb-init
+WORKDIR /usr/src/app
 
-WORKDIR /usr/src/todo-backend
+COPY --chown=node:node . .
 
-COPY --chown=node:node . . 
+RUN npm ci
 
-RUN npm ci --omit=dev
-
-ENV DEBUG=todo-backend
+ENV DEBUG=playground:*
 
 USER node
 
-CMD ["dumb-init","node","./bin/www"]
-
-
+CMD ["node", "./bin/www"]
