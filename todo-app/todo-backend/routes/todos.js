@@ -1,6 +1,25 @@
 const express = require("express");
 const { Todo } = require("../mongo");
 const router = express.Router();
+const { get, set } = require("../redis/index.js");
+
+async function changeCurrentTodos(operation) {
+  let todoCount = await get("added_todos");
+  switch (operation) {
+    case "increment":
+      todoCount++;
+      await set("added_todos", todoCount);
+      break;
+    case "decrement":
+      todoCount--;
+      await set("added_todos", todoCount);
+      break;
+    default:
+      throw new Error(
+        `operation is neither increment nor decrement: ${operation}`,
+      );
+  }
+}
 
 /* GET todos listing. */
 router.get("/", async (_, res) => {
@@ -14,6 +33,7 @@ router.post("/", async (req, res) => {
     text: req.body.text,
     done: false,
   });
+  changeCurrentTodos("increment");
   res.send(todo);
 });
 
@@ -32,7 +52,8 @@ const findByIdMiddleware = async (req, res, next) => {
 /* DELETE todo. */
 singleRouter.delete("/", async (req, res) => {
   await Todo.deleteOne(req.todo);
-  res.sendStatus(200);
+  changeCurrentTodos("decrement");
+  await res.sendStatus(200);
 });
 
 /* GET todo. */
