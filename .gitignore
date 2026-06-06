@@ -9,3 +9,6 @@ todo-app/test-results/
 todo-app/playwright-report/
 todo-app/playwright/.cache/.DS_STORE
 .DS_STORE
+datadir/
+all-collections.archive
+redis-data/
