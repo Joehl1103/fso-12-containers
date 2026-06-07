@@ -20,6 +20,11 @@
 - 6/2: continue with "[Debugging issues in containers](https://courses.mooc.fi/org/uh-cs/courses/full-stack-open-containers/chapter-3)"
 - 6/4: [working through the redis docker image tutorial](https://hub.docker.com/_/redis)
 - 6/5: I nam in the middle of exercise 10. This is how I think I need to proceed:
- 1. initialize the counter using the redis-cli at container creation
- 2. add a set each time a todo is added
- 3. add a get each time the endpoint is visited
+
+1.  initialize the counter using the redis-cli at container creation
+2.  add a set each time a todo is added
+3.  add a get each time the endpoint is visited
+
+- 6/5: set up a separate express backend and figure out how to serve the files locally.
+  - https://courses.mooc.fi/org/uh-cs/courses/full-stack-open-containers/chapter-4
+  - https://courses.mooc.fi/org/uh-cs/courses/full-stack-open-containers/chapter-4
