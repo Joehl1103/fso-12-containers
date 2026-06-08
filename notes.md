@@ -28,3 +28,4 @@
 - 6/5: set up a separate express backend and figure out how to serve the files locally.
   - https://courses.mooc.fi/org/uh-cs/courses/full-stack-open-containers/chapter-4
   - https://courses.mooc.fi/org/uh-cs/courses/full-stack-open-containers/chapter-4
+- 6/6: reading through [multi-stage builds](https://docs.docker.com/build/building/multi-stage/)
