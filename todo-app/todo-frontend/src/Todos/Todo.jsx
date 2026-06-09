@@ -3,11 +3,14 @@ const Todo = ({ todo, onClickDelete, onClickComplete }) => {
   const notDone = "This todo is not done";
   const isDone = todo.done;
   const deleteButton = (todo) => (
-    <button onClick={onClickDelete(todo)}>Delete</button>
+    <button onClick={() => onClickDelete(todo)}>❌</button>
   );
   const completeButton = (todo) => (
-    <button onClick={onClickComplete(todo)}>Set as done</button>
+    <button onClick={() => onClickComplete(todo)}>✅</button>
   );
+  if (!todo || !todo._id) {
+    return null;
+  }
   return (
     <div
       style={{
@@ -17,10 +20,12 @@ const Todo = ({ todo, onClickDelete, onClickComplete }) => {
         margin: "auto",
       }}
     >
-      <span>{todo.text}</span>
-      <span>{isDone ? done : notDone}</span>
-      <span>
-        {deleteButton(todo)} {todo.done ? completeButton(todo) : null}
+      <span style={{ flex: 1, textAlign: "left" }}>{todo.text}</span>
+      <span style={{ flex: 1, textAlign: "center" }}>
+        {isDone ? done : notDone}
+      </span>
+      <span style={{ flex: 1, textAlign: "right" }}>
+        {deleteButton(todo)} {!todo.done ? completeButton(todo) : null}
       </span>
     </div>
   );
