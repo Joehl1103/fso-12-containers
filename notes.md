@@ -29,3 +29,10 @@
   - https://courses.mooc.fi/org/uh-cs/courses/full-stack-open-containers/chapter-4
   - https://courses.mooc.fi/org/uh-cs/courses/full-stack-open-containers/chapter-4
 - 6/6: reading through [multi-stage builds](https://docs.docker.com/build/building/multi-stage/)
+- 6/7: need to fix the issue with the web socket on the front-end:
+
+```javascript
+WebSocket connection to 'ws://localhost:8081/' failed:
+```
+
+- 6/8: I need to figure out how to fix the methods for deleting and completing. Once I am done doing that I need to test that deleting and completing changes the state. Once done, I need to figure out how to run vitest during one of the build stages and pass data in

@@ -8,9 +8,7 @@ const Todo = ({ todo, onClickDelete, onClickComplete }) => {
   const completeButton = (todo) => (
     <button onClick={() => onClickComplete(todo)}>✅</button>
   );
-  if (!todo || !todo._id) {
-    return null;
-  }
+  console.log("todo", todo);
   return (
     <div
       style={{
@@ -21,7 +19,7 @@ const Todo = ({ todo, onClickDelete, onClickComplete }) => {
       }}
     >
       <span style={{ flex: 1, textAlign: "left" }}>{todo.text}</span>
-      <span style={{ flex: 1, textAlign: "center" }}>
+      <span data-testid="done-status" style={{ flex: 1, textAlign: "center" }}>
         {isDone ? done : notDone}
       </span>
       <span style={{ flex: 1, textAlign: "right" }}>
