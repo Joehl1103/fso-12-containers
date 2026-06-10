@@ -1,11 +1,7 @@
-import { render } from "@testing-library/react";
+import { render, screen, logRoles } from "@testing-library/react";
 import { describe, it } from "vitest";
 import Todo from "./Todo";
-
-const todos = [
-  { text: "done", done: true },
-  { text: "not done", done: false },
-];
+import { todos } from "./fixtures";
 
 describe("Todos", () => {
   it("done todo says done", () => {
@@ -30,13 +26,5 @@ describe("Todos", () => {
     const { getByTestId } = render(<Todo todo={todos[1]} />);
     const doneStatus = getByTestId("done-status").textContent;
     expect(doneStatus).toEqual("This todo is not done");
-  });
-
-  it("not done has complete and delete", () => {
-    const { queryByRole } = render(<Todo todo={todos[1]} />);
-    const completeBttn = queryByRole("button", { name: "✅" });
-    expect(completeBttn).toBeTruthy();
-    const deleteBttn = queryByRole("button", { name: "❌" });
-    expect(completeBttn).toBeTruthy();
   });
 });

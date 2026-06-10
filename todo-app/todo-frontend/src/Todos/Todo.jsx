@@ -2,11 +2,9 @@ const Todo = ({ todo, onClickDelete, onClickComplete }) => {
   const done = "This todo is done";
   const notDone = "This todo is not done";
   const isDone = todo.done;
-  const deleteButton = (todo) => (
-    <button onClick={() => onClickDelete(todo)}>❌</button>
-  );
+  const deleteButton = (todo) => <button onClick={onClickDelete}>❌</button>;
   const completeButton = (todo) => (
-    <button onClick={() => onClickComplete(todo)}>✅</button>
+    <button onClick={onClickComplete}>✅</button>
   );
   console.log("todo", todo);
   return (
@@ -17,6 +15,7 @@ const Todo = ({ todo, onClickDelete, onClickComplete }) => {
         maxWidth: "70%",
         margin: "auto",
       }}
+      data-testid="todo"
     >
       <span style={{ flex: 1, textAlign: "left" }}>{todo.text}</span>
       <span data-testid="done-status" style={{ flex: 1, textAlign: "center" }}>
