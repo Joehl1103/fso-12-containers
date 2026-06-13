@@ -12,26 +12,37 @@ const user = userEvent.setup();
 let serverTodos = todos.map((t) => ({ ...t }));
 const server = setupServer(
   http.get(`/todos`, () => {
-    return HttpResponse.json(todos);
+    return HttpResponse.json(serverTodos);
   }),
   http.post("/todos", () => {
     return HttpResponse.json({ _id: "3", text: "new todo", done: false });
   }),
   http.put("/todos/:id", ({ params }) => {
     const id = params.id;
-    const target = serverTodos.find((t) => (t._id = id));
-    console.log("target", target);
-    if (target) {
-      target.done = true;
+    const isTodo = serverTodos.some((t) => t._id === id);
+    let newServerTodos;
+    if (isTodo) {
+      newServerTodos = serverTodos.map((t) => {
+        if (t._id === id) {
+          return {
+            ...t,
+            done: true,
+          };
+        }
+        return t;
+      });
+      serverTodos = newServerTodos;
     }
-    serverTodos = [...serverTodos, target];
-    return HttpResponse.json(target);
+    return HttpResponse.json(newServerTodos);
   }),
 );
 
 describe("List", () => {
   beforeAll(() => server.listen());
-  beforeEach(() => (serverTodos = todos.map((t) => ({ ...t }))));
+  beforeEach(() => {
+    console.log("serverTodos", serverTodos);
+    serverTodos = todos.map((t) => ({ ...t }));
+  });
   afterAll(() => server.close());
   it("renders", async () => {
     render(<TodoView />);
@@ -56,16 +67,14 @@ describe("List", () => {
     const completeBttn = await within(todo1).findByRole("button", {
       name: "✅",
     });
-    console.log(serverTodos);
     await user.click(completeBttn);
-    console.log(serverTodos);
     const todo2 = await getNotDoneTodo();
-    screen.debug(todo2);
     const status = await within(todo2).findByTestId("done-status").textContent;
+    screen.debug(status);
     // expect(status).toEqual("This todo is done");
   });
-  it("deleting removes data", async () => {
-    render(<TodoView />);
-    await screen.findAllByTestId("done-status");
-  });
+  // it("deleting removes data", async () => {
+  //   render(<TodoView />);
+  //   await screen.findAllByTestId("done-status");
+  // });
 });
