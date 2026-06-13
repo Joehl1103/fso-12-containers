@@ -7,6 +7,9 @@ import { todos } from "./fixtures";
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 
+const user = userEvent.setup();
+
+let serverTodos = todos.map((t) => ({ ...t }));
 const server = setupServer(
   http.get(`/todos`, () => {
     return HttpResponse.json(todos);
@@ -14,17 +17,21 @@ const server = setupServer(
   http.post("/todos", () => {
     return HttpResponse.json({ _id: "3", text: "new todo", done: false });
   }),
-  http.put("/todos/2", () => {
-    console.log("hello");
+  http.put("/todos/:id", ({ params }) => {
+    const id = params.id;
+    const target = serverTodos.find((t) => (t._id = id));
+    console.log("target", target);
+    if (target) {
+      target.done = true;
+    }
+    serverTodos = [...serverTodos, target];
+    return HttpResponse.json(target);
   }),
 );
 
 describe("List", () => {
-  const user = userEvent.setup();
-  beforeAll(() => {
-    server.listen();
-  });
-  beforeEach(() => server.resetHandlers());
+  beforeAll(() => server.listen());
+  beforeEach(() => (serverTodos = todos.map((t) => ({ ...t }))));
   afterAll(() => server.close());
   it("renders", async () => {
     render(<TodoView />);
@@ -38,19 +45,27 @@ describe("List", () => {
     const newTodo = await screen.findByText("new todo");
     expect(newTodo).toBeTruthy();
   });
-  it("completing changes status to 'This todo is done'", async () => {
+  it.only("completing changes status to 'This todo is done'", async () => {
     render(<TodoView />);
     await screen.findAllByTestId("done-status");
-    const notDoneSpan = await screen.findByText("This todo is not done");
-    const todo = notDoneSpan.closest('[data-testid="todo"]');
-    const completeBttn = await within(todo).findByRole("button", {
+    async function getNotDoneTodo() {
+      const notDoneSpan = await screen.findByText("not done", { exact: true });
+      return notDoneSpan.closest('[data-testid="todo"]');
+    }
+    const todo1 = await getNotDoneTodo();
+    const completeBttn = await within(todo1).findByRole("button", {
       name: "✅",
     });
-    screen.debug(completeBttn);
+    console.log(serverTodos);
     await user.click(completeBttn);
-    // const notDoneSpan = await screen.findByText("not done");
-    // const row = notDoneSpan.closest('[data-testid="todo"]');
-    // const status = within(row).getByTestId("done-status").textContent;
+    console.log(serverTodos);
+    const todo2 = await getNotDoneTodo();
+    screen.debug(todo2);
+    const status = await within(todo2).findByTestId("done-status").textContent;
     // expect(status).toEqual("This todo is done");
+  });
+  it("deleting removes data", async () => {
+    render(<TodoView />);
+    await screen.findAllByTestId("done-status");
   });
 });
