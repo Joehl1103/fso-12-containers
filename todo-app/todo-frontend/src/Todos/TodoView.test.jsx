@@ -69,9 +69,9 @@ describe("List", () => {
     });
     await user.click(completeBttn);
     const todo2 = await getNotDoneTodo();
-    const status = await within(todo2).findByTestId("done-status").textContent;
-    screen.debug(status);
-    // expect(status).toEqual("This todo is done");
+    const statusSpan = await within(todo2).findByTestId("done-status");
+    const text = statusSpan.textContent;
+    expect(text).toEqual("This todo is done");
   });
   // it("deleting removes data", async () => {
   //   render(<TodoView />);
