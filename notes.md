@@ -36,3 +36,5 @@ WebSocket connection to 'ws://localhost:8081/' failed:
 ```
 
 - 6/8: I need to figure out how to fix the methods for deleting and completing. Once I am done doing that I need to test that deleting and completing changes the state. Once done, I need to figure out how to run vitest during one of the build stages and pass data in
+- 6/10: testing post by clicking on the button
+- 6/12: trying to solve the test build issue where the final stage using nginx will not copy the dist folder. I am in the middle of attempting to exec into the container after the test stage and observe the location of dist using `docker run --rm -it odo-test-stage-debug sh`. It appears that dist is there along with everything else so the question is, why is `COPY --from=test /dist /usr/share/nginx/html` not correctly copying dist? Is it because the directory structure on linux is not as obvious? As in copying to . and copying from /dist is not the same thing? The structure of the nginx copy command `COPY --from=test /dist /usr/share/nginx/html` suggests that.
