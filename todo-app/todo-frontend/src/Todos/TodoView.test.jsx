@@ -35,15 +35,32 @@ const server = setupServer(
     }
     return HttpResponse.json(newServerTodos);
   }),
+  http.delete("/todos/:id", ({ params }) => {
+    console.log("hi");
+    const id = params.id;
+    console.log("id", id);
+    const isTodo = serverTodos.some((t) => t._id === id);
+    let newServerTodos = serverTodos;
+    console.log("serverTodos", serverTodos);
+    if (isTodo) {
+      newServerTodos = serverTodos.filter((t) => !(t._id === id));
+      console.log("serverTodos", serverTodos);
+    }
+    serverTodos = newServerTodos;
+    return HttpResponse.json(serverTodos);
+  }),
 );
 
 describe("List", () => {
   beforeAll(() => server.listen());
   beforeEach(() => {
-    console.log("serverTodos", serverTodos);
     serverTodos = todos.map((t) => ({ ...t }));
   });
   afterAll(() => server.close());
+  async function getNotDoneTodo() {
+    const notDoneSpan = await screen.findByText("not done", { exact: true });
+    return notDoneSpan.closest('[data-testid="todo"]');
+  }
   it("renders", async () => {
     render(<TodoView />);
     const all = await screen.findAllByTestId("todo");
@@ -56,7 +73,7 @@ describe("List", () => {
     const newTodo = await screen.findByText("new todo");
     expect(newTodo).toBeTruthy();
   });
-  it.only("completing changes status to 'This todo is done'", async () => {
+  it("completing changes status to 'This todo is done'", async () => {
     render(<TodoView />);
     await screen.findAllByTestId("done-status");
     async function getNotDoneTodo() {
@@ -73,8 +90,15 @@ describe("List", () => {
     const text = statusSpan.textContent;
     expect(text).toEqual("This todo is done");
   });
-  // it("deleting removes data", async () => {
-  //   render(<TodoView />);
-  //   await screen.findAllByTestId("done-status");
-  // });
+  it("deleting removes data", async () => {
+    render(<TodoView />);
+    await screen.findAllByTestId("done-status");
+    const todo1 = await getNotDoneTodo();
+    const deleteButton = await within(todo1).findByRole("button", {
+      name: "❌",
+    });
+    await user.click(deleteButton);
+    const todo2 = screen.queryByText("not done");
+    expect(todo2).toBeFalsy();
+  });
 });
