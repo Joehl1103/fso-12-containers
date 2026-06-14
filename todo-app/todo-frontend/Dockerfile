@@ -9,9 +9,7 @@ RUN npm ci && npm run build
 
 FROM build-stage AS test
 
-RUN ["npm","run","test"] 
-
-COPY --from=build-stage . .  
+RUN ["npm", "run", "test"]
 
 FROM nginx:1.29-alpine
 
