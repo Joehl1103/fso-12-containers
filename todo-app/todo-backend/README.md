@@ -20,3 +20,6 @@ The application has /todos crud which requires a MongoDB. Pass connection url wi
 
 Pass connection url with env `REDIS_URL`
 
+# Docker
+
+When running in dev mode, you will need to use `docker compose -f docker-compose.dev.yml up`. Note that this will still require running the backend utility `npm run dev` to start up the application at `localhost:3000`. The only services that are currently containerized are the mongo and redis services, NOT the backend itself.
