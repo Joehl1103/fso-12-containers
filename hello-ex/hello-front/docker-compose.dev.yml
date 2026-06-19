@@ -1,8 +1,11 @@
 services:
   app:
     image: hello-front-dev
+    # used  the rebuild the application. When an image is not present, uses the dockerfile, otherwise defaults to the image
     build:
+      # file path for what to send to the docker daemon for the build
       context: .
+      # name of the dockerfile to use for the build
       dockerfile: dev.Dockerfile
     volumes:
       - ./:/usr/src/app
