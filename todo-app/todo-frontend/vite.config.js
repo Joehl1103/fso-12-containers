@@ -10,6 +10,6 @@ export default defineConfig({
     setupFiles: "./src/setupTests.js",
   },
   server: {
-    allowedHosts: ["front-end"],
+    allowedHosts: ["todo-frontend"],
   },
 });
