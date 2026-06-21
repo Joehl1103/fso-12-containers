@@ -2,9 +2,6 @@ const MONGO_URL = process.env.MONGO_URL || undefined;
 // MONGO_URL=mongodb://the_username:the_password@localhost:3456/the_database npm run dev
 const REDIS_URL = process.env.REDIS_URL || undefined;
 
-console.log("REDIS_URL", REDIS_URL);
-console.log("MONGO_URL", MONGO_URL);
-
 module.exports = {
   MONGO_URL,
   REDIS_URL,
