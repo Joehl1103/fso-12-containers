@@ -1,19 +1,16 @@
 services:
-  todo-frontend:
+  todo-front:
     build:
-      context: ./todo-frontend/
-      dockerfile: dev.Dockerfile
+      context: ./todo-front/
+      dockerfile: Dockerfile
     volumes:
-      - ./todo-frontend/:/usr/src/app
+      - ./todo-front/:/usr/src/app
       - /usr/src/app/node_modules
-    container_name: todo-front-dev
+    container_name: todo-front
   todo-backend:
     build:
       context: ./todo-backend/
-      dockerfile: dev.Dockerfile
-    volumes:
-      - ./todo-backend/:/usr/src/app
-      - /usr/src/app/node_modules
+      dockerfile: Dockerfile
     container_name: express-server
     environment:
       - REDIS_URL=redis://redis:6379
@@ -23,8 +20,6 @@ services:
       - redis
   mongo:
     image: mongo
-    ports:
-      - 3456:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: the_username
       MONGO_INITDB_ROOT_PASSWORD: the_password
@@ -34,18 +29,16 @@ services:
       - ./todo-backend/mongo_data:/data/db
   redis:
     image: redis
-    ports:
-      - 6379:6379
     command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - ./todo-backend/redis_data:/data
   nginx:
     image: nginx:1.29
     volumes:
-      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - 8080:80
     container_name: reverse-proxy
     depends_on:
-      - todo-frontend
+      - todo-front
       - todo-backend

@@ -1,9 +1,7 @@
-FROM node:24 AS build-stage
+FROM node:22 AS build-stage
 WORKDIR /usr/src/app
 
 COPY . .
-
-ENV VITE_BACKEND_URL=http://localhost:3000
 
 RUN npm ci && npm run build
 

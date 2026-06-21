@@ -1,4 +1,4 @@
-import { render, screen, logRoles } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { describe, it } from "vitest";
 import Todo from "./Todo";
 import { todos } from "./fixtures";

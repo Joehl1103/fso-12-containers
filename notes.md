@@ -42,3 +42,7 @@ WebSocket connection to 'ws://localhost:8081/' failed:
 - 6/16: running `docker run --progress=plain -p 5173:5173 -v "$(pwd):/usr/src/app/" -v /usr/src/app/node_modules todo-front-dev bash ` without success in running the container. Trying to reproduce what I did in `/Users/josephshomefolder/development/fso/fso-12-containers/react-ex/hello-front/docker-compose.dev.yml` with overwriting node_modules (?). There is also the solution that FSO suggests which is to "exec" into the container and install the dependencies.
 - 6/17: continue with Communication between containers in a Docker network.
 - 6/19: setting up the full stack in a docker network. front-end is back up but now there errors with the backend connecting to the front. Look at the api configuration.
+- 6/20: setting up a production version of the full-stack app. Running into the following issues:
+* `Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received`
+* `GET http://localhost:8080/todos 404 (Not Found)`
+* `Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received`
