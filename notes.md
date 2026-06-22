@@ -43,6 +43,10 @@ WebSocket connection to 'ws://localhost:8081/' failed:
 - 6/17: continue with Communication between containers in a Docker network.
 - 6/19: setting up the full stack in a docker network. front-end is back up but now there errors with the backend connecting to the front. Look at the api configuration.
 - 6/20: setting up a production version of the full-stack app. Running into the following issues:
+
 * `Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received`
 * `GET http://localhost:8080/todos 404 (Not Found)`
 * `Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received`
+
+- 6/21: running the playwright tests in dev to ensure they pass before running them in production. I may need to set up the playwright tests to run with the dev env variables
+- 6/22: fixed the endpoints in nginx.dev.conf so the front end is running and is able to reach the backend. E2E tests are still failing. Fix these before deploying to production.

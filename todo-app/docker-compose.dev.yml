@@ -1,10 +1,10 @@
 services:
   todo-frontend:
     build:
-      context: ./todo-frontend/
+      context: ./todo-front/
       dockerfile: dev.Dockerfile
     volumes:
-      - ./todo-frontend/:/usr/src/app
+      - ./todo-front/:/usr/src/app
       - /usr/src/app/node_modules
     container_name: todo-front-dev
   todo-backend:
