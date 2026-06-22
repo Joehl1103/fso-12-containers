@@ -12,3 +12,4 @@ todo-app/playwright/.cache/.DS_STORE
 datadir/
 all-collections.archive
 todo-app/todo-backend/redis_data/
+.npmrc
