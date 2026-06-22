@@ -23,7 +23,7 @@ jobs:
         run: docker build -t todo-backend -f Dockerfile .
 
       - name: Build todo-frontend image
-        working-directory: ./todo-app/todo-frontend
+        working-directory: ./todo-app/todo-front
         run: docker build -t todo-front -f Dockerfile .
 
       - name: Start todo-app with Docker Compose
