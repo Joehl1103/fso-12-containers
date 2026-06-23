@@ -1,0 +1,1 @@
+- Exercises 22-23: see patientor-typescript/. This is a copy of the Typescript project directly in this repository.

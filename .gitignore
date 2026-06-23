@@ -13,3 +13,5 @@ datadir/
 all-collections.archive
 todo-app/todo-backend/redis_data/
 .npmrc
+
+notes.md
