@@ -1,0 +1,27 @@
+services:
+  front:
+    image: pat-front-dev
+    build: ./frontend
+    volumes:
+      - ./frontend/:/usr/src/app
+      - /usr/src/app/node_modules
+    container_name: pat-front-dev
+    depends_on:
+      - back
+  back:
+    image: pat-back-dev
+    build: ./backend
+    volumes:
+      - ./backend/:/usr/src/app
+      - /usr/src/app/node_modules
+    container_name: pat-back-dev
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: reverse-proxy
+    depends_on:
+      - front
+      - back

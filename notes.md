@@ -50,3 +50,4 @@ WebSocket connection to 'ws://localhost:8081/' failed:
 
 - 6/21: running the playwright tests in dev to ensure they pass before running them in production. I may need to set up the playwright tests to run with the dev env variables
 - 6/22: fixed the endpoints in nginx.dev.conf so the front end is running and is able to reach the backend. E2E tests are still failing. Fix these before deploying to production.
+- 6/22: building dev container for patientor-typescript. Stuck on running the images that I pre-built: `Error response from daemon: pull access denied for pat-back-dev, repository does not exist or may require 'docker login'`
