@@ -51,3 +51,6 @@ WebSocket connection to 'ws://localhost:8081/' failed:
 - 6/21: running the playwright tests in dev to ensure they pass before running them in production. I may need to set up the playwright tests to run with the dev env variables
 - 6/22: fixed the endpoints in nginx.dev.conf so the front end is running and is able to reach the backend. E2E tests are still failing. Fix these before deploying to production.
 - 6/22: building dev container for patientor-typescript. Stuck on running the images that I pre-built: `Error response from daemon: pull access denied for pat-back-dev, repository does not exist or may require 'docker login'`
+- 6/23: building prod container. Backend works but front-end is not responding. I tried the same config as todo-app and start both containers but neither seems to be workind. I need to understhow nginx "serves" the files in order to debug.
+- 6/23: set up the main docker-compose and nginx conf file
+- 6/23: debugging the main build for docker-compose.yml and nginx.conf. I cannot get them to build and then access them at localhost:8080 through the browser. 

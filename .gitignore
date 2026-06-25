@@ -1,5 +1,5 @@
 node_modules/
-.env
+.env*
 
 todo-app/todo-backend/redis_data/
 todo-app/todo-backend/mongo_data/
@@ -13,5 +13,11 @@ datadir/
 all-collections.archive
 todo-app/todo-backend/redis_data/
 .npmrc
+
+# Patientor
+patientor-typescript/backend/build
+patientor-typescript/frontend/dist
+
+.DS_Store
 
 notes.md
